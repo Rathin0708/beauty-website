@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Naturals Signature - Palayamkottai</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Poppins:wght@300;400;500;600;700&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+          --pink: #e91e63;
+          --pink-light: #f8bbd0;
+          --pink-dark: #c2185b;
+          --dark: #1a1a1a;
+          --gray: #666;
+          --light-gray: #f5f5f5;
+          --gold: #d4a574;
+        }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Poppins', sans-serif; color: #333; overflow-x: hidden; }
+
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeInLeft { from { opacity: 0; transform: translateX(-40px); } to { opacity: 1; transform: translateX(0); } }
+        @keyframes fadeInRight { from { opacity: 0; transform: translateX(40px); } to { opacity: 1; transform: translateX(0); } }
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+        @keyframes scaleIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+        @keyframes rotateIn { from { opacity: 0; transform: rotate(-10deg) scale(0.9); } to { opacity: 1; transform: rotate(0) scale(1); } }
+        @keyframes hairWave { 0%, 100% { transform: rotate(-2deg); } 50% { transform: rotate(2deg); } }
+        @keyframes sparkle { 0%, 100% { opacity: 0.3; transform: scale(0.8); } 50% { opacity: 1; transform: scale(1.2); } }
+        @keyframes gradientShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        @keyframes breathe { 0%, 100% { transform: scale(1); opacity: 0.6; } 50% { transform: scale(1.1); opacity: 0.8; } }
+
+        .animate-on-scroll { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+        .animate-on-scroll.visible { opacity: 1; transform: translateY(0); }
+
+        /* Navbar */
+        .navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: #fff; box-shadow: 0 2px 20px rgba(0,0,0,0.08); padding: 12px 60px; display: flex; align-items: center; justify-content: space-between; transition: all 0.3s ease; }
+        .navbar.scrolled { padding: 8px 60px; box-shadow: 0 4px 30px rgba(0,0,0,0.12); }
+        .nav-logo { display: flex; align-items: center; gap: 5px; text-decoration: none; }
+        .nav-logo .brand { font-size: 28px; font-weight: 700; color: var(--dark); letter-spacing: -1px; }
+        .nav-logo .brand span { color: var(--pink); }
+        .nav-logo .sub { font-family: 'Dancing Script', cursive; font-size: 16px; color: var(--pink); display: block; margin-top: -8px; margin-left: 2px; }
+        .nav-links { display: flex; align-items: center; gap: 30px; list-style: none; }
+        .nav-links a { text-decoration: none; color: var(--dark); font-size: 14px; font-weight: 500; position: relative; transition: color 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: var(--pink); }
+        .nav-links a.active::after { content: ''; position: absolute; bottom: -5px; left: 0; right: 0; height: 2px; background: var(--pink); border-radius: 2px; }
+        .nav-right { display: flex; align-items: center; gap: 20px; }
+        .nav-phone { text-align: right; font-size: 13px; color: var(--dark); line-height: 1.5; }
+        .nav-phone i { color: var(--pink); margin-right: 5px; }
+        .btn-book { background: var(--pink); color: #fff; border: none; padding: 12px 24px; border-radius: 30px; font-size: 14px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: all 0.3s; text-decoration: none; }
+        .btn-book:hover { background: var(--pink-dark); transform: translateY(-2px); box-shadow: 0 8px 25px rgba(233,30,99,0.3); }
+        .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; }
+        .hamburger span { width: 25px; height: 2px; background: var(--dark); transition: all 0.3s; }
+
+        /* Hero Section */
+        .hero { margin-top: 70px; min-height: 620px; background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%); display: flex; align-items: center; position: relative; overflow: hidden; }
+        .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(ellipse at 30% 50%, rgba(233,30,99,0.08) 0%, transparent 60%); }
+
+        .hero-content { padding: 60px 80px; max-width: 580px; position: relative; z-index: 2; animation: fadeInLeft 1s ease; }
+        .hero-content h1 { font-family: 'Playfair Display', serif; font-size: 56px; color: #fff; line-height: 1.1; margin-bottom: 15px; }
+        .hero-content h1 .highlight { color: var(--pink); font-style: italic; }
+        .hero-services { color: #ccc; font-size: 16px; margin-bottom: 5px; }
+        .hero-services span { color: var(--pink); }
+        .hero-since { color: #999; font-size: 14px; margin-bottom: 10px; }
+        .hero-location { color: #ccc; font-size: 14px; margin-bottom: 30px; display: flex; align-items: center; gap: 8px; }
+        .hero-location i { color: var(--pink); }
+        .hero-buttons { display: flex; gap: 15px; flex-wrap: wrap; }
+        .btn-primary { background: var(--pink); color: #fff; border: none; padding: 14px 30px; border-radius: 30px; font-size: 15px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: all 0.3s; text-decoration: none; }
+        .btn-primary:hover { background: var(--pink-dark); transform: translateY(-2px); box-shadow: 0 8px 25px rgba(233,30,99,0.4); }
+        .btn-secondary { background: transparent; color: #fff; border: 2px solid rgba(255,255,255,0.3); padding: 14px 30px; border-radius: 30px; font-size: 15px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: all 0.3s; text-decoration: none; }
+        .btn-secondary:hover { border-color: #fff; background: rgba(255,255,255,0.1); transform: translateY(-2px); }
+
+        /* Hero Image - Woman with flowing hair */
+        .hero-image { position: absolute; right: 0; top: 0; bottom: 0; width: 55%; overflow: hidden; }
+        .hero-image-inner {
+          width: 100%; height: 100%; position: relative;
+          background: linear-gradient(180deg, #2a1f1a 0%, #3d2b1f 20%, #5c3d2e 40%, #8b6f47 60%, #5c3d2e 80%, #2a1f1a 100%);
+          background-size: 100% 200%;
+          animation: gradientShift 15s ease infinite;
+        }
+        .hero-image-inner::before {
+          content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+          background:
+            radial-gradient(ellipse at 50% 20%, rgba(139,111,71,0.6) 0%, transparent 50%),
+            radial-gradient(ellipse at 40% 40%, rgba(92,61,46,0.8) 0%, transparent 60%),
+            radial-gradient(ellipse at 60% 60%, rgba(139,111,71,0.4) 0%, transparent 50%);
+        }
+        /* Hair flowing effect */
+        .hero-hair {
+          position: absolute; top: 0; left: 20%; right: 10%; bottom: 0;
+          background: linear-gradient(180deg,
+            #1a0f0a 0%, #2a1810 10%, #3d2518 20%, #5c3a28 30%,
+            #4a2e20 40%, #3d2518 50%, #2a1810 60%, #1a0f0a 70%,
+            #2a1810 80%, #3d2518 90%, #1a0f0a 100%);
+          border-radius: 50% 50% 30% 30% / 20% 20% 80% 80%;
+          animation: hairWave 4s ease-in-out infinite;
+          opacity: 0.9;
+        }
+        .hero-hair::before {
+          content: ''; position: absolute; top: 10%; left: 10%; right: 10%; bottom: 20%;
+          background: linear-gradient(180deg,
+            rgba(139,111,71,0.3) 0%, rgba(92,61,46,0.5) 30%,
+            rgba(139,111,71,0.3) 60%, rgba(92,61,46,0.4) 100%);
+          border-radius: 40%;
+        }
+        /* Face silhouette */
+        .hero-face {
+          position: absolute; top: 15%; left: 35%; width: 30%; height: 35%;
+          background: linear-gradient(180deg, #d4a574 0%, #c4956a 30%, #b8845a 60%, #a8744a 100%);
+          border-radius: 50% 50% 45% 45% / 60% 60% 40% 40%;
+          box-shadow: inset -10px -10px 30px rgba(0,0,0,0.2);
+        }
+        .hero-face::before {
+          content: ''; position: absolute; top: 35%; left: 25%; width: 15%; height: 8%;
+          background: #8b6f47; border-radius: 50%;
+        }
+        .hero-face::after {
+          content: ''; position: absolute; top: 35%; right: 25%; width: 15%; height: 8%;
+          background: #8b6f47; border-radius: 50%;
+        }
+        .hero-lips {
+          position: absolute; bottom: 25%; left: 50%; transform: translateX(-50%);
+          width: 20%; height: 6%;
+          background: linear-gradient(180deg, #c44569 0%, #e91e63 50%, #c44569 100%);
+          border-radius: 50%;
+        }
+        /* Sparkle effects */
+        .sparkle {
+          position: absolute; width: 6px; height: 6px;
+          background: radial-gradient(circle, rgba(255,255,255,0.9) 0%, transparent 70%);
+          border-radius: 50%;
+          animation: sparkle 2s ease-in-out infinite;
+        }
+        .sparkle:nth-child(1) { top: 20%; left: 30%; animation-delay: 0s; }
+        .sparkle:nth-child(2) { top: 40%; left: 60%; animation-delay: 0.5s; }
+        .sparkle:nth-child(3) { top: 60%; left: 40%; animation-delay: 1s; }
+        .sparkle:nth-child(4) { top: 30%; left: 70%; animation-delay: 1.5s; }
+        .sparkle:nth-child(5) { top: 70%; left: 55%; animation-delay: 0.3s; }
+
+        .hero-image-inner::after {
+          content: ''; position: absolute; top: 0; left: -100px; bottom: 0; width: 200px;
+          background: linear-gradient(to right, #1a1a1a, transparent); z-index: 2;
+        }
+
+        .hero-script { position: absolute; right: 60px; top: 50%; transform: translateY(-50%); z-index: 3; text-align: right; animation: fadeInRight 1.2s ease 0.3s both; }
+        .hero-script p { font-family: 'Dancing Script', cursive; font-size: 28px; color: rgba(255,255,255,0.9); line-height: 1.4; }
+        .hero-script p .heart { color: var(--pink); }
+
+        /* Stats Bar */
+        .stats-bar { background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 50%, #fce4ec 100%); padding: 30px 80px; display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap; gap: 20px; }
+        .stat-item { display: flex; align-items: center; gap: 15px; animation: fadeInUp 0.8s ease both; }
+        .stat-item:nth-child(1) { animation-delay: 0.1s; }
+        .stat-item:nth-child(2) { animation-delay: 0.2s; }
+        .stat-item:nth-child(3) { animation-delay: 0.3s; }
+        .stat-item:nth-child(4) { animation-delay: 0.4s; }
+        .stat-icon { width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; font-size: 24px; color: var(--pink); }
+        .stat-icon i { font-size: 32px; }
+        .stat-text h4 { font-size: 14px; font-weight: 600; color: var(--dark); }
+        .stat-text p { font-size: 12px; color: var(--gray); }
+
+        /* Section Styles */
+        .section { padding: 80px 80px; }
+        .section-label { font-size: 12px; font-weight: 600; color: var(--pink); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 10px; }
+        .section-title { font-family: 'Playfair Display', serif; font-size: 40px; color: var(--dark); margin-bottom: 10px; }
+        .section-subtitle { font-size: 14px; color: var(--gray); margin-bottom: 40px; }
+        .section-line { width: 50px; height: 3px; background: var(--pink); margin-bottom: 30px; border-radius: 3px; }
+
+        /* Services Section */
+        .services-section { background: #fff; }
+        .services-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 40px; }
+        .services-header .right-text { text-align: right; font-size: 14px; color: var(--gray); font-style: italic; max-width: 200px; }
+        .services-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 20px; }
+        .service-card { border-radius: 15px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.08); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; background: #fff; }
+        .service-card:hover { transform: translateY(-10px); box-shadow: 0 15px 40px rgba(233,30,99,0.15); }
+        .service-img { height: 200px; position: relative; overflow: hidden; }
+        .service-img .img-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; transition: transform 0.5s; position: relative; }
+        .service-card:hover .img-placeholder { transform: scale(1.1); }
+
+        /* Service Image Styles - CSS Art */
+        .svc-hair {
+          background: linear-gradient(135deg, #2a1f1a 0%, #5c3d2e 30%, #8b6f47 50%, #5c3d2e 70%, #2a1f1a 100%);
+          background-size: 200% 200%;
+          animation: gradientShift 8s ease infinite;
+        }
+        .svc-hair::before {
+          content: ''; position: absolute; top: 10%; left: 30%; width: 40%; height: 60%;
+          background: linear-gradient(180deg, #d4a574 0%, #c4956a 50%, #b8845a 100%);
+          border-radius: 50% 50% 40% 40%;
+        }
+        .svc-hair::after {
+          content: ''; position: absolute; top: 20%; left: 20%; right: 20%; bottom: 10%;
+          background: linear-gradient(180deg, #3d2518 0%, #5c3a28 30%, #4a2e20 60%, #3d2518 100%);
+          border-radius: 40% 40% 60% 60%;
+          opacity: 0.8;
+        }
+
+        .svc-bridal {
+          background: linear-gradient(135deg, #8b0000 0%, #c0392b 30%, #e74c3c 50%, #c0392b 70%, #8b0000 100%);
+          background-size: 200% 200%;
+          animation: gradientShift 8s ease infinite;
+        }
+        .svc-bridal::before {
+          content: ''; position: absolute; top: 15%; left: 30%; width: 40%; height: 50%;
+          background: linear-gradient(180deg, #d4a574 0%, #c4956a 100%);
+          border-radius: 50% 50% 45% 45%;
+        }
+        .svc-bridal::after {
+          content: '💍'; position: absolute; top: 55%; left: 50%; transform: translateX(-50%);
+          font-size: 30px;
+        }
+
+        .svc-beauty {
+          background: linear-gradient(135deg, #f5e6d3 0%, #e8d5c4 30%, #f0e0d0 50%, #e8d5c4 70%, #f5e6d3 100%);
+          background-size: 200% 200%;
+          animation: gradientShift 8s ease infinite;
+        }
+        .svc-beauty::before {
+          content: ''; position: absolute; top: 20%; left: 25%; width: 50%; height: 50%;
+          background: linear-gradient(180deg, #f5d0c0 0%, #e8b8a8 50%, #f5d0c0 100%);
+          border-radius: 50%;
+          box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        .svc-beauty::after {
+          content: ''; position: absolute; top: 35%; left: 35%; width: 30%; height: 15%;
+          background: linear-gradient(180deg, #fff 0%, #f0f0f0 100%);
+          border-radius: 50%;
+        }
+
+        .svc-nails {
+          background: linear-gradient(135deg, #f8bbd0 0%, #f48fb1 30%, #ec407a 50%, #f48fb1 70%, #f8bbd0 100%);
+          background-size: 200% 200%;
+          animation: gradientShift 8s ease infinite;
+        }
+        .svc-nails::before {
+          content: ''; position: absolute; bottom: 20%; left: 20%; width: 60%; height: 40%;
+          background: linear-gradient(180deg, #f5d0c0 0%, #e8b8a8 100%);
+          border-radius: 30% 30% 50% 50%;
+        }
+        .svc-nails::after {
+          content: ''; position: absolute; bottom: 30%; left: 25%; width: 12%; height: 20%;
+          background: linear-gradient(180deg, #e91e63 0%, #c2185b 100%);
+          border-radius: 50% 50% 30% 30%;
+          box-shadow: 15px 0 0 #e91e63, 30px 0 0 #e91e63, 45px 0 0 #e91e63;
+        }
+
+        .svc-men {
+          background: linear-gradient(135deg, #2c3e50 0%, #34495e 30%, #4a6274 50%, #34495e 70%, #2c3e50 100%);
+          background-size: 200% 200%;
+          animation: gradientShift 8s ease infinite;
+        }
+        .svc-men::before {
+          content: ''; position: absolute; top: 15%; left: 30%; width: 40%; height: 45%;
+          background: linear-gradient(180deg, #d4a574 0%, #c4956a 100%);
+          border-radius: 50% 50% 45% 45%;
+        }
+        .svc-men::after {
+          content: ''; position: absolute; top: 10%; left: 25%; right: 25%; height: 20%;
+          background: linear-gradient(180deg, #1a1a1a 0%, #2c2c2c 100%);
+          border-radius: 50% 50% 30% 30%;
+        }
+
+        .svc-kids {
+          background: linear-gradient(135deg, #7f8c8d 0%, #95a5a6 30%, #bdc3c7 50%, #95a5a6 70%, #7f8c8d 100%);
+          background-size: 200% 200%;
+          animation: gradientShift 8s ease infinite;
+        }
+        .svc-kids::before {
+          content: ''; position: absolute; top: 20%; left: 30%; width: 40%; height: 40%;
+          background: linear-gradient(180deg, #f5d0c0 0%, #e8b8a8 100%);
+          border-radius: 50%;
+        }
+        .svc-kids::after {
+          content: ''; position: absolute; top: 15%; left: 25%; right: 25%; height: 25%;
+          background: linear-gradient(180deg, #4a3728 0%, #5c4a3a 100%);
+          border-radius: 50% 50% 30% 30%;
+        }
+
+        .service-info { padding: 15px; display: flex; justify-content: space-between; align-items: center; }
+        .service-info h4 { font-size: 14px; font-weight: 600; color: var(--dark); }
+        .service-info .arrow { width: 30px; height: 30px; background: var(--pink); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 12px; transition: all 0.3s; }
+        .service-card:hover .arrow { transform: translateX(5px); background: var(--pink-dark); }
+
+        /* Banner Section */
+        .banner-section { background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%); padding: 60px 80px; display: flex; align-items: center; justify-content: space-between; position: relative; overflow: hidden; }
+        .banner-section::before { content: ''; position: absolute; top: 0; right: 0; width: 40%; height: 100%; background: linear-gradient(135deg, rgba(93,61,46,0.3), rgba(139,111,71,0.2)); clip-path: polygon(20% 0, 100% 0, 100% 100%, 0% 100%); }
+        .banner-left { position: relative; z-index: 2; }
+        .banner-logo { font-size: 36px; font-weight: 700; color: #fff; margin-bottom: 5px; }
+        .banner-logo span { color: var(--pink); }
+        .banner-logo-sub { font-family: 'Dancing Script', cursive; color: var(--pink); font-size: 20px; }
+        .banner-logo-loc { color: #999; font-size: 12px; letter-spacing: 3px; text-transform: uppercase; }
+        .banner-center { text-align: center; position: relative; z-index: 2; }
+        .banner-center h2 { font-family: 'Playfair Display', serif; color: #fff; font-size: 32px; margin-bottom: 5px; }
+        .banner-center h2 .italic { font-style: italic; color: var(--pink); }
+        .banner-features { display: flex; gap: 40px; margin-top: 30px; justify-content: center; }
+        .banner-feature { text-align: center; color: #fff; }
+        .banner-feature i { font-size: 28px; color: var(--pink); margin-bottom: 8px; display: block; }
+        .banner-feature span { font-size: 12px; color: #ccc; }
+        .banner-right { position: relative; z-index: 2; text-align: right; }
+        .banner-right p { font-family: 'Dancing Script', cursive; font-size: 36px; color: rgba(255,255,255,0.8); line-height: 1.3; }
+
+        /* Gallery Section */
+        .gallery-section { background: #fff; }
+        .gallery-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 40px; }
+        .gallery-header .right-text { text-align: right; font-size: 14px; color: var(--gray); font-style: italic; }
+        .gallery-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 15px; }
+        .gallery-item { border-radius: 12px; overflow: hidden; position: relative; height: 220px; cursor: pointer; transition: all 0.4s; }
+        .gallery-item:hover { transform: scale(1.05); box-shadow: 0 10px 30px rgba(0,0,0,0.15); }
+        .gallery-item .img-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 14px; color: rgba(255,255,255,0.9); font-weight: 500; position: relative; }
+
+        /* Gallery Image Styles */
+        .g1 { background: linear-gradient(135deg, #4a3728 0%, #6b4f3a 50%, #4a3728 100%); background-size: 200% 200%; animation: gradientShift 6s ease infinite; }
+        .g1::before { content: ''; position: absolute; top: 15%; left: 25%; width: 50%; height: 60%; background: linear-gradient(180deg, #3d2518 0%, #5c3a28 50%, #3d2518 100%); border-radius: 40% 40% 60% 60%; }
+        .g1::after { content: ''; position: absolute; top: 20%; left: 35%; width: 30%; height: 35%; background: linear-gradient(180deg, #d4a574 0%, #c4956a 100%); border-radius: 50%; }
+
+        .g2 { background: linear-gradient(135deg, #5c3d2e 0%, #8b6f47 50%, #5c3d2e 100%); background-size: 200% 200%; animation: gradientShift 6s ease infinite; }
+        .g2::before { content: ''; position: absolute; top: 10%; left: 20%; right: 20%; bottom: 10%; background: linear-gradient(180deg, #2a1810 0%, #4a2e20 30%, #3d2518 60%, #2a1810 100%); border-radius: 30% 30% 50% 50%; }
+        .g2::after { content: ''; position: absolute; top: 15%; left: 30%; width: 40%; height: 30%; background: linear-gradient(180deg, #d4a574 0%, #c4956a 100%); border-radius: 50%; }
+
+        .g3 { background: linear-gradient(135deg, #7b4a5e 0%, #a0607a 50%, #7b4a5e 100%); background-size: 200% 200%; animation: gradientShift 6s ease infinite; }
+        .g3::before { content: ''; position: absolute; top: 15%; left: 25%; width: 50%; height: 55%; background: linear-gradient(180deg, #5c3a4a 0%, #7b4a5e 50%, #5c3a4a 100%); border-radius: 40%; }
+        .g3::after { content: ''; position: absolute; top: 20%; left: 35%; width: 30%; height: 30%; background: linear-gradient(180deg, #d4a574 0%, #c4956a 100%); border-radius: 50%; }
+
+        .g4 { background: linear-gradient(135deg, #3d2b1f 0%, #5c3d2e 50%, #3d2b1f 100%); background-size: 200% 200%; animation: gradientShift 6s ease infinite; }
+        .g4::before { content: ''; position: absolute; top: 10%; left: 20%; right: 20%; bottom: 15%; background: linear-gradient(180deg, #1a0f0a 0%, #3d2518 40%, #2a1810 70%, #1a0f0a 100%); border-radius: 35% 35% 55% 55%; }
+        .g4::after { content: ''; position: absolute; top: 15%; left: 32%; width: 36%; height: 32%; background: linear-gradient(180deg, #d4a574 0%, #c4956a 100%); border-radius: 50%; }
+
+        .g5 { background: linear-gradient(135deg, #8b4513 0%, #a0522d 50%, #8b4513 100%); background-size: 200% 200%; animation: gradientShift 6s ease infinite; }
+        .g5::before { content: ''; position: absolute; top: 12%; left: 22%; width: 56%; height: 58%; background: linear-gradient(180deg, #6b3410 0%, #8b4513 40%, #6b3410 80%); border-radius: 38%; }
+        .g5::after { content: ''; position: absolute; top: 18%; left: 33%; width: 34%; height: 28%; background: linear-gradient(180deg, #d4a574 0%, #c4956a 100%); border-radius: 50%; }
+
+        .g6 { background: linear-gradient(135deg, #6b3a3a 0%, #8b5050 50%, #6b3a3a 100%); background-size: 200% 200%; animation: gradientShift 6s ease infinite; }
+        .g6::before { content: ''; position: absolute; top: 10%; left: 18%; right: 18%; bottom: 12%; background: linear-gradient(180deg, #4a2525 0%, #6b3a3a 30%, #5a3030 60%, #4a2525 100%); border-radius: 32% 32% 58% 58%; }
+        .g6::after { content: ''; position: absolute; top: 16%; left: 32%; width: 36%; height: 30%; background: linear-gradient(180deg, #d4a574 0%, #c4956a 100%); border-radius: 50%; }
+
+        .g7 { background: linear-gradient(135deg, #4a4a4a 0%, #6b6b6b 50%, #4a4a4a 100%); background-size: 200% 200%; animation: gradientShift 6s ease infinite; }
+        .g7::before { content: ''; position: absolute; top: 12%; left: 22%; width: 56%; height: 56%; background: linear-gradient(180deg, #3a3a3a 0%, #5a5a5a 40%, #3a3a3a 80%); border-radius: 40%; }
+        .g7::after { content: ''; position: absolute; top: 18%; left: 34%; width: 32%; height: 28%; background: linear-gradient(180deg, #d4a574 0%, #c4956a 100%); border-radius: 50%; }
+
+        .gallery-label { position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.7); color: #fff; padding: 4px 12px; border-radius: 15px; font-size: 11px; z-index: 2; }
+
+        /* Offers Section */
+        .offers-section { background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 30%, #f48fb1 70%, #ec407a 100%); padding: 60px 80px; display: flex; align-items: center; justify-content: space-between; position: relative; overflow: hidden; }
+        .offers-section::before { content: ''; position: absolute; top: -50%; right: -10%; width: 500px; height: 500px; background: rgba(255,255,255,0.1); border-radius: 50%; }
+        .offers-left { display: flex; align-items: center; gap: 30px; position: relative; z-index: 2; }
+        .offers-icon { font-size: 60px; color: var(--pink); }
+        .offers-text h2 { font-family: 'Playfair Display', serif; font-size: 36px; color: var(--dark); }
+        .offers-text .label { font-size: 12px; font-weight: 600; color: var(--pink); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 5px; }
+        .offers-text p { color: var(--gray); font-size: 14px; }
+        .offers-btn { background: var(--pink); color: #fff; border: none; padding: 14px 30px; border-radius: 30px; font-size: 15px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: all 0.3s; text-decoration: none; position: relative; z-index: 2; }
+        .offers-btn:hover { background: var(--pink-dark); transform: translateY(-2px); box-shadow: 0 8px 25px rgba(233,30,99,0.3); }
+        .offers-script { font-family: 'Dancing Script', cursive; font-size: 24px; color: rgba(255,255,255,0.9); text-align: right; position: relative; z-index: 2; }
+
+        /* Testimonials */
+        .testimonials-section { background: #fff; }
+        .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .testimonial-card { background: #fff; border: 1px solid #eee; border-radius: 15px; padding: 30px; transition: all 0.4s; position: relative; }
+        .testimonial-card:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,0.08); border-color: var(--pink-light); }
+        .testimonial-top { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; }
+        .testimonial-avatar { width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; color: #fff; font-weight: 600; }
+        .ta1 { background: linear-gradient(135deg, #e91e63, #f06292); }
+        .ta2 { background: linear-gradient(135deg, #9c27b0, #ba68c8); }
+        .ta3 { background: linear-gradient(135deg, #2196f3, #64b5f6); }
+        .testimonial-quote { font-size: 14px; color: var(--gray); line-height: 1.6; margin-bottom: 15px; font-style: italic; }
+        .testimonial-stars { color: #ffc107; font-size: 14px; margin-bottom: 10px; }
+        .testimonial-name { font-size: 13px; color: var(--dark); font-weight: 600; }
+
+        /* About Section */
+        .about-section { background: var(--light-gray); padding: 80px; }
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr 350px; gap: 40px; align-items: start; }
+        .about-image { height: 400px; border-radius: 15px; overflow: hidden; position: relative; }
+        .about-image-inner {
+          width: 100%; height: 100%; position: relative;
+          background: linear-gradient(135deg, #2d2d2d 0%, #4a4a4a 30%, #3d3d3d 60%, #2d2d2d 100%);
+          background-size: 200% 200%;
+          animation: gradientShift 10s ease infinite;
+        }
+        .about-image-inner::before {
+          content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+          background:
+            linear-gradient(180deg, rgba(233,30,99,0.1) 0%, transparent 30%),
+            radial-gradient(ellipse at 50% 80%, rgba(255,255,255,0.1) 0%, transparent 50%);
+        }
+        /* Salon interior elements */
+        .salon-mirror {
+          position: absolute; top: 15%; left: 20%; width: 25%; height: 40%;
+          background: linear-gradient(180deg, rgba(255,255,255,0.3) 0%, rgba(200,200,200,0.2) 100%);
+          border: 3px solid rgba(212,165,116,0.5);
+          border-radius: 50% 50% 10% 10%;
+        }
+        .salon-chair {
+          position: absolute; bottom: 20%; left: 25%; width: 20%; height: 25%;
+          background: linear-gradient(180deg, #e91e63 0%, #c2185b 100%);
+          border-radius: 10% 10% 5% 5%;
+        }
+        .salon-chair::before {
+          content: ''; position: absolute; bottom: -15%; left: 30%; width: 40%; height: 20%;
+          background: #333; border-radius: 5px;
+        }
+        .salon-station {
+          position: absolute; top: 20%; right: 15%; width: 30%; height: 50%;
+          background: linear-gradient(180deg, rgba(255,255,255,0.2) 0%, rgba(200,200,200,0.1) 100%);
+          border: 2px solid rgba(212,165,116,0.3);
+          border-radius: 5px;
+        }
+        .salon-light {
+          position: absolute; top: 5%; left: 50%; transform: translateX(-50%);
+          width: 15%; height: 8%;
+          background: radial-gradient(ellipse, rgba(255,220,150,0.6) 0%, transparent 70%);
+          border-radius: 50%;
+          animation: breathe 3s ease-in-out infinite;
+        }
+
+        .about-image .overlay-text { position: absolute; top: 20px; left: 20px; font-family: 'Dancing Script', cursive; font-size: 32px; color: rgba(255,255,255,0.8); line-height: 1.3; z-index: 2; }
+        .about-content .section-label { margin-bottom: 5px; }
+        .about-content h2 { font-family: 'Playfair Display', serif; font-size: 32px; color: var(--dark); margin-bottom: 15px; }
+        .about-content p { font-size: 14px; color: var(--gray); line-height: 1.8; margin-bottom: 25px; }
+        .btn-know-more { background: var(--pink); color: #fff; border: none; padding: 14px 30px; border-radius: 30px; font-size: 15px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; transition: all 0.3s; text-decoration: none; }
+        .btn-know-more:hover { background: var(--pink-dark); transform: translateY(-2px); box-shadow: 0 8px 25px rgba(233,30,99,0.3); }
+        .about-contact { background: linear-gradient(135deg, #fce4ec, #f8bbd0); border-radius: 15px; padding: 30px; }
+        .contact-item { display: flex; align-items: flex-start; gap: 15px; margin-bottom: 20px; }
+        .contact-item i { font-size: 20px; color: var(--pink); margin-top: 3px; }
+        .contact-item .info h4 { font-size: 14px; font-weight: 600; color: var(--dark); }
+        .contact-item .info p { font-size: 13px; color: var(--gray); }
+
+        /* Map Section */
+        .map-section { display: grid; grid-template-columns: 1fr 1fr; min-height: 300px; }
+        .map-left { background: linear-gradient(135deg, #e8f5e9, #c8e6c9); position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .map-placeholder { width: 100%; height: 100%; background: linear-gradient(135deg, #b2dfdb, #80cbc4); display: flex; align-items: center; justify-content: center; position: relative; }
+        .map-placeholder::before {
+          content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+          background:
+            linear-gradient(90deg, transparent 48%, rgba(255,255,255,0.3) 49%, rgba(255,255,255,0.3) 51%, transparent 52%),
+            linear-gradient(0deg, transparent 48%, rgba(255,255,255,0.3) 49%, rgba(255,255,255,0.3) 51%, transparent 52%);
+          background-size: 80px 80px;
+        }
+        .map-placeholder::after {
+          content: ''; position: absolute; top: 30%; left: 20%; width: 60%; height: 40%;
+          border: 2px dashed rgba(0,0,0,0.1); border-radius: 10px;
+        }
+        .map-pin { position: absolute; top: 40%; left: 45%; text-align: center; z-index: 2; }
+        .map-pin i { font-size: 36px; color: var(--pink); animation: float 2s ease-in-out infinite; }
+        .map-pin p { font-size: 12px; font-weight: 600; color: var(--dark); margin-top: 5px; background: rgba(255,255,255,0.9); padding: 4px 10px; border-radius: 10px; }
+        .map-right { background: linear-gradient(135deg, #1a1a1a, #2d2d2d); padding: 60px; display: flex; flex-direction: column; justify-content: center; position: relative; overflow: hidden; }
+        .map-right::before { content: ''; position: absolute; right: -50px; bottom: -50px; width: 200px; height: 200px; border: 2px solid rgba(255,255,255,0.1); border-radius: 50%; }
+        .map-right::after { content: ''; position: absolute; right: -20px; bottom: -20px; width: 120px; height: 120px; border: 2px solid rgba(255,255,255,0.05); border-radius: 50%; }
+        .map-right h2 { font-family: 'Playfair Display', serif; color: #fff; font-size: 32px; margin-bottom: 10px; }
+        .map-right p { color: #ccc; font-size: 14px; margin-bottom: 25px; }
+        .btn-directions { background: var(--pink); color: #fff; border: none; padding: 14px 30px; border-radius: 30px; font-size: 15px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; transition: all 0.3s; text-decoration: none; width: fit-content; }
+        .btn-directions:hover { background: var(--pink-dark); transform: translateY(-2px); box-shadow: 0 8px 25px rgba(233,30,99,0.3); }
+
+        /* Footer */
+        .footer { background: #fff; padding: 40px 80px 20px; border-top: 1px solid #eee; }
+        .footer-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; flex-wrap: wrap; gap: 20px; }
+        .footer-logo .brand { font-size: 28px; font-weight: 700; color: var(--dark); }
+        .footer-logo .brand span { color: var(--pink); }
+        .footer-logo .sub { font-family: 'Dancing Script', cursive; color: var(--pink); font-size: 16px; }
+        .footer-links { display: flex; gap: 25px; list-style: none; }
+        .footer-links a { text-decoration: none; color: var(--gray); font-size: 14px; transition: color 0.3s; }
+        .footer-links a:hover { color: var(--pink); }
+        .footer-social { display: flex; gap: 15px; }
+        .footer-social a { width: 40px; height: 40px; border-radius: 50%; background: var(--light-gray); display: flex; align-items: center; justify-content: center; color: var(--dark); text-decoration: none; transition: all 0.3s; }
+        .footer-social a:hover { background: var(--pink); color: #fff; transform: translateY(-3px); }
+        .footer-bottom { text-align: center; padding-top: 20px; border-top: 1px solid #eee; }
+        .footer-bottom p { font-size: 13px; color: var(--gray); }
+        .footer-bottom .tagline { font-family: 'Dancing Script', cursive; color: var(--pink); font-size: 16px; margin-top: 5px; }
+
+        /* Mobile Menu */
+        .mobile-menu { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.95); z-index: 999; flex-direction: column; align-items: center; justify-content: center; gap: 30px; }
+        .mobile-menu.active { display: flex; }
+        .mobile-menu a { color: #fff; text-decoration: none; font-size: 24px; font-weight: 500; transition: color 0.3s; }
+        .mobile-menu a:hover { color: var(--pink); }
+        .mobile-close { position: absolute; top: 20px; right: 30px; background: none; border: none; color: #fff; font-size: 30px; cursor: pointer; }
+
+        /* Responsive */
+        @media (max-width: 1200px) { .services-grid { grid-template-columns: repeat(3, 1fr); } .gallery-grid { grid-template-columns: repeat(4, 1fr); } }
+        @media (max-width: 992px) {
+          .navbar { padding: 12px 30px; } .nav-links { display: none; } .nav-phone { display: none; } .hamburger { display: flex; }
+          .hero-content { padding: 40px 30px; } .hero-content h1 { font-size: 40px; } .hero-image { width: 45%; }
+          .section { padding: 60px 30px; } .stats-bar { padding: 30px; }
+          .banner-section { padding: 40px 30px; flex-direction: column; gap: 30px; text-align: center; }
+          .banner-features { flex-wrap: wrap; } .about-grid { grid-template-columns: 1fr; }
+          .testimonials-grid { grid-template-columns: 1fr; } .map-section { grid-template-columns: 1fr; }
+          .offers-section { flex-direction: column; gap: 20px; text-align: center; }
+          .footer { padding: 30px; } .services-grid { grid-template-columns: repeat(2, 1fr); }
+          .gallery-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+        @media (max-width: 600px) {
+          .hero-content h1 { font-size: 32px; } .hero-image { display: none; } .hero { min-height: 500px; }
+          .services-grid { grid-template-columns: 1fr; } .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+          .section-title { font-size: 28px; } .banner-center h2 { font-size: 24px; }
+          .footer-top { flex-direction: column; text-align: center; } .footer-links { flex-wrap: wrap; justify-content: center; }
+        }
+
+        .scroll-top { position: fixed; bottom: 30px; right: 30px; width: 50px; height: 50px; background: var(--pink); color: #fff; border: none; border-radius: 50%; font-size: 20px; cursor: pointer; display: none; align-items: center; justify-content: center; z-index: 100; transition: all 0.3s; box-shadow: 0 5px 20px rgba(233,30,99,0.3); }
+        .scroll-top:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(233,30,99,0.4); }
+        .scroll-top.visible { display: flex; }
+
+        .page-loader { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: #fff; z-index: 9999; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 20px; transition: opacity 0.5s, visibility 0.5s; }
+        .page-loader.hidden { opacity: 0; visibility: hidden; }
+        .loader-spinner { width: 50px; height: 50px; border: 3px solid var(--pink-light); border-top-color: var(--pink); border-radius: 50%; animation: spin 0.8s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .loader-text { font-family: 'Dancing Script', cursive; font-size: 24px; color: var(--pink); }
+    </style>
+</head>
+<body>
+
+<div class="page-loader" id="pageLoader">
+    <div class="loader-spinner"></div>
+    <div class="loader-text">Naturals Signature</div>
+</div>
+
+<nav class="navbar" id="navbar">
+    <a href="#" class="nav-logo">
+        <div>
+            <div class="brand">natur<span>a</span>ls</div>
+            <div class="sub">Signature</div>
+        </div>
+    </a>
+    <ul class="nav-links">
+        <li><a href="#home" class="active">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#offers">Offers</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+        <div class="nav-phone">
+            <div><i class="fas fa-phone"></i> 97864 91110</div>
+            <div><i class="fas fa-phone"></i> 0462 2568444</div>
+        </div>
+        <a href="#" class="btn-book"><i class="fas fa-calendar-alt"></i> Book Appointment</a>
+        <button class="hamburger" id="hamburgerBtn" onclick="toggleMobileMenu()">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+    <button class="mobile-close" onclick="toggleMobileMenu()"><i class="fas fa-times"></i></button>
+    <a href="#home" onclick="toggleMobileMenu()">Home</a>
+    <a href="#about" onclick="toggleMobileMenu()">About</a>
+    <a href="#services" onclick="toggleMobileMenu()">Services</a>
+    <a href="#gallery" onclick="toggleMobileMenu()">Gallery</a>
+    <a href="#offers" onclick="toggleMobileMenu()">Offers</a>
+    <a href="#contact" onclick="toggleMobileMenu()">Contact</a>
+</div>
+
+<section class="hero" id="home">
+    <div class="hero-content">
+        <h1>Be Your Most <span class="highlight">Beautiful</span> You</h1>
+        <p class="hero-services">Hair | Beauty | Nails | Makeup</p>
+        <p class="hero-since">Since 2013</p>
+        <p class="hero-location"><i class="fas fa-map-marker-alt"></i> Palayamkottai, Tirunelveli</p>
+        <div class="hero-buttons">
+            <a href="#" class="btn-primary"><i class="fas fa-calendar-alt"></i> Book Appointment</a>
+            <a href="#services" class="btn-secondary"><i class="fas fa-arrow-right"></i> View Services</a>
+        </div>
+    </div>
+    <div class="hero-image">
+        <div class="hero-image-inner">
+            <div class="sparkle"></div>
+            <div class="sparkle"></div>
+            <div class="sparkle"></div>
+            <div class="sparkle"></div>
+            <div class="sparkle"></div>
+            <div class="hero-hair"></div>
+            <div class="hero-face"></div>
+            <div class="hero-lips"></div>
+        </div>
+    </div>
+    <div class="hero-script">
+        <p>Hair<br>Beauty<br>Confidence<br>Always You <span class="heart">♡</span></p>
+    </div>
+</section>
+
+<div class="stats-bar">
+    <div class="stat-item">
+        <div class="stat-icon"><i class="fas fa-gem"></i></div>
+        <div class="stat-text"><h4>10+ Years</h4><p>of Experience</p></div>
+    </div>
+    <div class="stat-item">
+        <div class="stat-icon"><i class="fas fa-users"></i></div>
+        <div class="stat-text"><h4>Trained & Certified</h4><p>Professionals</p></div>
+    </div>
+    <div class="stat-item">
+        <div class="stat-icon"><i class="fas fa-leaf"></i></div>
+        <div class="stat-text"><h4>Premium Products</h4><p>& Hygiene</p></div>
+    </div>
+    <div class="stat-item">
+        <div class="stat-icon"><i class="fas fa-heart"></i></div>
+        <div class="stat-text"><h4>Thousands of</h4><p>Happy Clients</p></div>
+    </div>
+</div>
+
+<section class="section services-section" id="services">
+    <div class="services-header animate-on-scroll">
+        <div>
+            <p class="section-label">OUR SERVICES</p>
+            <h2 class="section-title">Complete Beauty Care Under One Roof</h2>
+            <div class="section-line"></div>
+        </div>
+        <div class="right-text">Expert care for<br>every version of you</div>
+    </div>
+    <div class="services-grid">
+        <div class="service-card animate-on-scroll">
+            <div class="service-img"><div class="img-placeholder svc-hair"></div></div>
+            <div class="service-info"><h4>Hair Services</h4><div class="arrow"><i class="fas fa-arrow-right"></i></div></div>
+        </div>
+        <div class="service-card animate-on-scroll">
+            <div class="service-img"><div class="img-placeholder svc-bridal"></div></div>
+            <div class="service-info"><h4>Bridal Makeup</h4><div class="arrow"><i class="fas fa-arrow-right"></i></div></div>
+        </div>
+        <div class="service-card animate-on-scroll">
+            <div class="service-img"><div class="img-placeholder svc-beauty"></div></div>
+            <div class="service-info"><h4>Beauty Services</h4><div class="arrow"><i class="fas fa-arrow-right"></i></div></div>
+        </div>
+        <div class="service-card animate-on-scroll">
+            <div class="service-img"><div class="img-placeholder svc-nails"></div></div>
+            <div class="service-info"><h4>Nail Care</h4><div class="arrow"><i class="fas fa-arrow-right"></i></div></div>
+        </div>
+        <div class="service-card animate-on-scroll">
+            <div class="service-img"><div class="img-placeholder svc-men"></div></div>
+            <div class="service-info"><h4>Men's Grooming</h4><div class="arrow"><i class="fas fa-arrow-right"></i></div></div>
+        </div>
+        <div class="service-card animate-on-scroll">
+            <div class="service-img"><div class="img-placeholder svc-kids"></div></div>
+            <div class="service-info"><h4>Kids Haircut</h4><div class="arrow"><i class="fas fa-arrow-right"></i></div></div>
+        </div>
+    </div>
+</section>
+
+<section class="banner-section">
+    <div class="banner-left animate-on-scroll">
+        <div class="banner-logo">natur<span>a</span>ls</div>
+        <div class="banner-logo-sub">Signature</div>
+        <div class="banner-logo-loc">PALAYAMKOTTAI</div>
+    </div>
+    <div class="banner-center animate-on-scroll">
+        <h2>More Than A Salon<br><span class="italic">A Beauty Experience</span></h2>
+        <div class="banner-features">
+            <div class="banner-feature"><i class="fas fa-cut"></i><span>Trendy Styles</span></div>
+            <div class="banner-feature"><i class="fas fa-leaf"></i><span>Advanced Treatments</span></div>
+            <div class="banner-feature"><i class="fas fa-heart"></i><span>Personalized Care</span></div>
+            <div class="banner-feature"><i class="fas fa-users"></i><span>For All Age Groups</span></div>
+        </div>
+    </div>
+    <div class="banner-right animate-on-scroll">
+        <p>Good<br>Hair<br>Good<br>Mood</p>
+    </div>
+</section>
+
+<section class="section gallery-section" id="gallery">
+    <div class="gallery-header animate-on-scroll">
+        <div>
+            <p class="section-label">GALLERY</p>
+            <h2 class="section-title">Real People. Real Transformations.</h2>
+            <div class="section-line"></div>
+        </div>
+        <div class="right-text">Beauty Speaks Louder<br>Than Words</div>
+    </div>
+    <div class="gallery-grid">
+        <div class="gallery-item animate-on-scroll"><div class="img-placeholder g1"></div><div class="gallery-label">Before</div></div>
+        <div class="gallery-item animate-on-scroll"><div class="img-placeholder g2"></div><div class="gallery-label">After</div></div>
+        <div class="gallery-item animate-on-scroll"><div class="img-placeholder g3"></div></div>
+        <div class="gallery-item animate-on-scroll"><div class="img-placeholder g4"></div></div>
+        <div class="gallery-item animate-on-scroll"><div class="img-placeholder g5"></div></div>
+        <div class="gallery-item animate-on-scroll"><div class="img-placeholder g6"></div></div>
+        <div class="gallery-item animate-on-scroll"><div class="img-placeholder g7"></div></div>
+    </div>
+</section>
+
+<section class="offers-section" id="offers">
+    <div class="offers-left animate-on-scroll">
+        <div class="offers-icon"><i class="fas fa-gift"></i></div>
+        <div class="offers-text">
+            <p class="label">SPECIAL OFFERS</p>
+            <h2>Look Good. Feel Good.</h2>
+            <p>Exciting offers on hair, beauty, bridal & more!</p>
+        </div>
+    </div>
+    <a href="#" class="offers-btn animate-on-scroll">View Current Offers <i class="fas fa-arrow-right"></i></a>
+    <div class="offers-script animate-on-scroll">Self care<br>is not a luxury,<br>it's a necessity ♡</div>
+</section>
+
+<section class="section testimonials-section">
+    <div class="animate-on-scroll">
+        <p class="section-label">TESTIMONIALS</p>
+        <h2 class="section-title">What Our Clients Say</h2>
+        <div class="section-line"></div>
+    </div>
+    <div class="testimonials-grid">
+        <div class="testimonial-card animate-on-scroll">
+            <div class="testimonial-top">
+                <div class="testimonial-avatar ta1">P</div>
+                <div><p class="testimonial-quote">"Amazing experience! Loved my hair makeover. The team is so professional and friendly."</p></div>
+            </div>
+            <div class="testimonial-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+            <p class="testimonial-name">- Priya S.</p>
+        </div>
+        <div class="testimonial-card animate-on-scroll">
+            <div class="testimonial-top">
+                <div class="testimonial-avatar ta2">D</div>
+                <div><p class="testimonial-quote">"Best salon in Tirunelveli! Very hygienic and great service. Highly recommended."</p></div>
+            </div>
+            <div class="testimonial-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+            <p class="testimonial-name">- Divya R</p>
+        </div>
+        <div class="testimonial-card animate-on-scroll">
+            <div class="testimonial-top">
+                <div class="testimonial-avatar ta3">K</div>
+                <div><p class="testimonial-quote">"Took my son for a haircut. They handled him so well. Really happy!"</p></div>
+            </div>
+            <div class="testimonial-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+            <p class="testimonial-name">- Karthik M</p>
+        </div>
+    </div>
+</section>
+
+<section class="about-section" id="about">
+    <div class="about-grid">
+        <div class="about-image animate-on-scroll">
+            <div class="about-image-inner">
+                <div class="salon-light"></div>
+                <div class="salon-mirror"></div>
+                <div class="salon-chair"></div>
+                <div class="salon-station"></div>
+            </div>
+            <div class="overlay-text">Beauty<br>Begins<br>Here</div>
+        </div>
+        <div class="about-content animate-on-scroll">
+            <p class="section-label">ABOUT US</p>
+            <h2>Naturals Signature<br>Palayamkottai</h2>
+            <div class="section-line"></div>
+            <p>Since 2013, Naturals Signature Palayamkottai has been a trusted name in hair and beauty. We combine expertise, quality products and personalized care to bring out the best version of you.</p>
+            <a href="#" class="btn-know-more">Know More <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="about-contact animate-on-scroll">
+            <div class="contact-item"><i class="fas fa-phone"></i><div class="info"><h4>97864 91110</h4><h4>0462 2568444</h4></div></div>
+            <div class="contact-item"><i class="fas fa-map-marker-alt"></i><div class="info"><h4>Palayamkottai,</h4><p>Tirunelveli</p></div></div>
+            <div class="contact-item"><i class="fas fa-clock"></i><div class="info"><h4>Mon - Sun</h4><p>9:00 AM - 8:00 PM</p></div></div>
+            <div class="contact-item"><i class="fas fa-calendar-alt"></i><div class="info"><h4>Book Appointment</h4><p>(Online / Call / Visit)</p></div></div>
+        </div>
+    </div>
+</section>
+
+<section class="map-section" id="contact">
+    <div class="map-left">
+        <div class="map-placeholder">
+            <div class="map-pin"><i class="fas fa-map-marker-alt"></i><p>Naturals Signature<br>Palayamkottai</p></div>
+            <div style="position:absolute;bottom:20px;left:20px;font-size:11px;color:#555"><i class="fas fa-road" style="margin-right:5px"></i>Palayamkottai<br>New Bus Stand</div>
+            <div style="position:absolute;top:20px;right:20px;font-size:11px;color:#555"><i class="fas fa-bus" style="margin-right:5px"></i>Tirunelveli<br>New Bus Stand</div>
+        </div>
+    </div>
+    <div class="map-right animate-on-scroll">
+        <h2>Visit Our Salon</h2>
+        <p>Find us easily and experience premium beauty care.</p>
+        <a href="#" class="btn-directions"><i class="fas fa-map-marker-alt"></i> Get Directions</a>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="footer-top">
+        <div class="footer-logo">
+            <div class="brand">natur<span>a</span>ls</div>
+            <div class="sub">Signature</div>
+        </div>
+        <ul class="footer-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#offers">Offers</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="footer-social">
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>© 2024 Naturals Signature Palayamkottai. All rights reserved.</p>
+        <p class="tagline">Beauty for a Better You ♡</p>
+    </div>
+</footer>
+
+<button class="scroll-top" id="scrollTopBtn" onclick="scrollToTop()"><i class="fas fa-arrow-up"></i></button>
+
+<script>
+    window.addEventListener('load', () => { setTimeout(() => { document.getElementById('pageLoader').classList.add('hidden'); }, 800); });
+
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) navbar.classList.add('scrolled');
+      else navbar.classList.remove('scrolled');
+      const scrollBtn = document.getElementById('scrollTopBtn');
+      if (window.scrollY > 500) scrollBtn.classList.add('visible');
+      else scrollBtn.classList.remove('visible');
+    });
+
+    const navLinks = document.querySelectorAll('.nav-links a');
+    const sections = document.querySelectorAll('section[id]');
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop - 100;
+        if (window.scrollY >= sectionTop) current = section.getAttribute('id');
+      });
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#' + current) link.classList.add('active');
+      });
+    });
+
+    const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, index) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => { entry.target.classList.add('visible'); }, index * 100);
+        }
+      });
+    }, observerOptions);
+    document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobileMenu');
+      menu.classList.toggle('active');
+      document.body.style.overflow = menu.classList.contains('active') ? 'hidden' : '';
+    }
+
+    function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+
+    document.querySelectorAll('.service-card').forEach((card, i) => { card.style.transitionDelay = (i * 0.1) + 's'; });
+    document.querySelectorAll('.gallery-grid .gallery-item').forEach((item, i) => { item.style.transitionDelay = (i * 0.08) + 's'; });
+    document.querySelectorAll('.testimonials-grid .testimonial-card').forEach((card, i) => { card.style.transitionDelay = (i * 0.15) + 's'; });
+</script>
+</body>
+</html>
