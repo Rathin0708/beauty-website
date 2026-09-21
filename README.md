@@ -4,7 +4,7 @@ A single-page website for Naturals Signature, a beauty salon in Palayamkottai.
 
 ## Live Site
 
-Deployed on Vercel: _link added after deployment_
+Deployed on Vercel: https://beauty-website-rose.vercel.app
 
 ## Structure
 
